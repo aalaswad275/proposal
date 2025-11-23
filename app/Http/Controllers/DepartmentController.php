@@ -59,6 +59,7 @@ class DepartmentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
     }
 
     /**
@@ -67,5 +68,6 @@ class DepartmentController extends Controller
     public function destroy(string $id)
     {
         //
+        $dept = Department::find($id);
     }
 }
