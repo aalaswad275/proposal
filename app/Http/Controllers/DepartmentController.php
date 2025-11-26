@@ -30,7 +30,23 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // تاكيد البيانات
+        $datavalidate= $request->validate([
+            'name'=>"required|max=255",
+            'code'=>"nullable",
+            'description'=>"nullable",
+
+        ]);
+        $dept= new Deaprtment();
+        // sql               نموذج
+        $dept->name = $request->name;
+        $dept->code = $request->code;
+        $dept->description = $request->description;
+        $dept->save();
+
+        return redirect()->route('department.index');
+
+
     }
 
     /**
@@ -59,6 +75,20 @@ class DepartmentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $datavalidate= $request->validate([
+            'name'=>"required|max=255",
+            'code'=>"nullable",
+            'description'=>"nullable",
+
+        ]);
+        $dept=  Deaprtment::find($id);
+        // sql               نموذج
+        $dept->name = $request->name;
+        $dept->code = $request->code;
+        $dept->description = $request->description;
+        $dept->save();
+
+        return redirect()->route('department.index');
 
     }
 
