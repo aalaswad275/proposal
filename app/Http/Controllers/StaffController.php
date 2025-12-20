@@ -16,7 +16,7 @@ class StaffController extends Controller
     {
         //
         $staffs = Staff::all();
-        return view('staff.index', compact('staffs'));
+        return view('Admin.staff.index', compact('staffs'));
 
     }
 
@@ -27,7 +27,7 @@ class StaffController extends Controller
     {
         //\
         $departments = Department::all();
-        return view('staff.create', compact('departments'));
+        return view('admin.staff.create', compact('departments'));
     }
 
     /**
@@ -133,5 +133,5 @@ class StaffController extends Controller
         $staff->delete();
         return redirect()->route('staff.index')->with('success', 'Staff deleted successfully.');
     }
-    
+
 }

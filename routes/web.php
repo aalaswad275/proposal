@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Department;
-
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StuProController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\ProjectController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +25,11 @@ Route::get('/admin', function () {
     return view('admin');
 });
 
-Route::resource('department', DepartmentController::class);
+Route::resource('departments', DepartmentController::class);
+Route::resource('students', StudentController::class);
+Route::resource('stupros', StuProController::class);
+Route::resource('staff', StaffController::class);
+Route::resource('projects', ProjectController::class);
 
 Auth::routes();
 
