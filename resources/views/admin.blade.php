@@ -64,7 +64,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="./index.html" aria-expanded="false">
                 <i class="ti ti-atom"></i>
-                <span class="hide-menu">Dashboard</span>
+                <span class="hide-menu">{{__('Dashboard')}}</span>
               </a>
             </li>
             <!-- ---------------------------------- -->
@@ -72,24 +72,24 @@
             <!-- ---------------------------------- -->
             <li class="sidebar-item">
               <a class="sidebar-link justify-content-between"
-                href="#" aria-expanded="false">
+                href="{{route('staff.index')}}" aria-expanded="false">
                 <div class="d-flex align-items-center gap-3">
                   <span class="d-flex">
                     <i class="ti ti-aperture"></i>
                   </span>
-                  <span class="hide-menu">Analytical</span>
+                  <span class="hide-menu">{{__('staff')}}</span>
                 </div>
 
               </a>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link justify-content-between"
-                href="#" aria-expanded="false">
+                href="{{route('students.index')}}" aria-expanded="false">
                 <div class="d-flex align-items-center gap-3">
                   <span class="d-flex">
                     <i class="ti ti-shopping-cart"></i>
                   </span>
-                  <span class="hide-menu">eCommerce</span>
+                  <span class="hide-menu">{{__('Students')}}</span>
                 </div>
 
               </a>
@@ -100,7 +100,7 @@
                   <span class="d-flex">
                     <i class="ti ti-layout-grid"></i>
                   </span>
-                  <span class="hide-menu">Front Pages</span>
+                  <span class="hide-menu">{{__('Projects')}}</span>
                 </div>
 
               </a>
