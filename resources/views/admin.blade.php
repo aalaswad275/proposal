@@ -107,88 +107,30 @@
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
                   <a class="sidebar-link justify-content-between"
-                    href="#">
+                    href="{{route('projects.index')}}">
                     <div class="d-flex align-items-center gap-3">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">Homepage</span>
+                      <span class="hide-menu">{{__('list of Projects')}}</span>
                     </div>
 
                   </a>
                 </li>
                 <li class="sidebar-item">
                   <a class="sidebar-link justify-content-between"
-                    href="#">
+                    href="{{route('projects.create')}}">
                     <div class="d-flex align-items-center gap-3">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">About Us</span>
+                      <span class="hide-menu">{{__('Add a new Project')}}</span>
                     </div>
 
                   </a>
                 </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Blog</span>
-                    </div>
 
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Blog Details</span>
-                    </div>
 
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Contact Us</span>
-                    </div>
-
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Portfolio</span>
-                    </div>
-
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a class="sidebar-link justify-content-between"
-                    href="#">
-                    <div class="d-flex align-items-center gap-3">
-                      <div class="round-16 d-flex align-items-center justify-content-center">
-                        <i class="ti ti-circle"></i>
-                      </div>
-                      <span class="hide-menu">Pricing</span>
-                    </div>
-
-                  </a>
-                </li>
               </ul>
             </li>
 
@@ -197,7 +139,7 @@
             </li>
             <li class="nav-small-cap">
               <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu">Apps</span>
+              <span class="hide-menu"></span>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link justify-content-between has-arrow" href="javascript:void(0)" aria-expanded="false">
@@ -205,55 +147,55 @@
                   <span class="d-flex">
                     <i class="ti ti-basket"></i>
                   </span>
-                  <span class="hide-menu">Ecommerce</span>
+                  <span class="hide-menu">{{__('Students Details')}}</span>
                 </div>
 
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
                   <a class="sidebar-link justify-content-between"
-                    href="#">
+                    href="{{route('students.create')}}">
                     <div class="d-flex align-items-center gap-3">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">Shop</span>
+                      <span class="hide-menu">{{__('Add  New Student')}}</span>
                     </div>
 
                   </a>
                 </li>
                 <li class="sidebar-item">
                   <a class="sidebar-link justify-content-between"
-                    href="#">
+                    href="{{route('student.projects')}}">
                     <div class="d-flex align-items-center gap-3">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">Details</span>
+                      <span class="hide-menu">{{__('Student Projects')}}</span>
                     </div>
 
                   </a>
                 </li>
                 <li class="sidebar-item">
                   <a class="sidebar-link justify-content-between"
-                    href="#">
+                    href="{{sroute('student.tasks')}}">
                     <div class="d-flex align-items-center gap-3">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">List</span>
+                      <span class="hide-menu">{{__('Student Project result')}}</span>
                     </div>
 
                   </a>
                 </li>
                 <li class="sidebar-item">
                   <a class="sidebar-link justify-content-between"
-                    href="#">
+                    href="{{route('student.printreport')}}">
                     <div class="d-flex align-items-center gap-3">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>
                       </div>
-                      <span class="hide-menu">Checkout</span>
+                      <span class="hide-menu">{{__('Student Print Report')}}</span>
                     </div>
 
                   </a>
