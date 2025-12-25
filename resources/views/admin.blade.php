@@ -48,7 +48,7 @@
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
           <a href="{{route('admin.dashboard')}}" class="text-nowrap logo-img">
-            <img src="{{asset('frontend/img/Logo.png')}}" alt="" />
+            <img src="{{asset('frontend/img/Logo.png')}}" height="100px" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-6"></i>
@@ -178,7 +178,7 @@
                 </li>
                 <li class="sidebar-item">
                   <a class="sidebar-link justify-content-between"
-                    href="{{sroute('student.tasks')}}">
+                    href="{{route('student.tasks')}}">
                     <div class="d-flex align-items-center gap-3">
                       <div class="round-16 d-flex align-items-center justify-content-center">
                         <i class="ti ti-circle"></i>

@@ -34,3 +34,7 @@ Route::resource('projects', ProjectController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/students/task', [App\Http\Controllers\HomeController::class, 'index'])->name('student.tasks');
+Route::get('/students/projects', [App\Http\Controllers\HomeController::class, 'index'])->name('student.projects');
+Route::get('/students/printreport', [App\Http\Controllers\HomeController::class, 'index'])->name('student.printreport');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard');

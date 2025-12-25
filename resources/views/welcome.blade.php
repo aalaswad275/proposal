@@ -64,7 +64,7 @@
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
             <a href="index.html" class="navbar-brand ml-lg-3">
-                <h1 class="m-0 text-uppercase text-primary"><img src="{{asset('frontend/img/Logo.png')}}" alt="" srcset="">APM</h1>
+                <h1 class="m-0 text-uppercase text-primary"><img src="{{asset('frontend/img/Logo.png')}}" height="80px"  alt="" srcset="">  APM</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -125,7 +125,7 @@
             <div class="row">
                 <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100" src="img/about.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100" src="{{asset('frontend/img/Logo.png')}}" >
                     </div>
                 </div>
                 <div class="col-lg-7">
