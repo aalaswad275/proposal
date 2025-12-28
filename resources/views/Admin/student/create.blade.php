@@ -1,13 +1,14 @@
 @extends('admin')
 @section('content')
-<div class="container">
+<div class="body-wrapper-inner">
+<div class="container-fluid">
     <div class="row">
 
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Add New Student</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('student.store') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('students.store') }}">
                        @csrf
 
                         <div class="form-group">
@@ -34,6 +35,6 @@
         </div>
     </div>
 </div>
-
+</div>
 
 @endsection
