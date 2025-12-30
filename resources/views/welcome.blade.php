@@ -34,6 +34,17 @@
                     <small><i class="fa fa-phone-alt mr-2"></i>+012 345 6789</small>
                     <small class="px-3">|</small>
                     <small><i class="fa fa-envelope mr-2"></i>info@example.com</small>
+
+    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+<small class="px-3">|</small>
+    <small>
+            <a class="text-white" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                {{ $properties['native'] }}
+            </a>
+        </small>
+    @endforeach
+
+
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">

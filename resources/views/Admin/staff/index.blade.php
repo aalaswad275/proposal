@@ -1,7 +1,7 @@
 @extends('admin')
 @section("content")
 
-  <div class="container">
+  <div class="container-fluid">
      <div class="col-12">
               <div class="card">
                 <div class="card-body">

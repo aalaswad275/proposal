@@ -1,7 +1,7 @@
 @extends('admin')
 
 @section('content')
-<div class="container mt-4">
+<div class="container-fluid mt-4">
 <br>
     <h2>Add New Staff</h2>
 

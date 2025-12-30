@@ -1,7 +1,7 @@
 @extends('admin')
 @section("content")
 
-  <div class="container">
+  <div class="container-fluid">
      <div class="col-12">
               <div class="card">
                 <div class="card-body">
@@ -9,7 +9,7 @@
                     <div>
                       <h4 class="card-title">{{__("Students List")}}</h4>
                       <p class="card-subtitle">
-                        <a href="{{route('student.create')}}" class="btn btn-primary btn-sm float-end">{{__('Add New Student')}}</a>
+                        <a href="{{route('students.create')}}" class="btn btn-primary btn-sm float-end">{{__('Add New Student')}}</a>
                       </p>
                     </div>
                     <div class="ms-auto mt-3 mt-md-0">

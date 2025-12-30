@@ -6,7 +6,7 @@
 
         <div class="col-md-12 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Add New Student</div>
+                <div class="panel-heading">{{__('Add New Student')}}</div>
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('students.store') }}">
                        @csrf
