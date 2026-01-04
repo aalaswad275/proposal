@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('admin')
 
 @section('content')
 
@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <a href="{{route('department.create')}}"> {{_('Add New Department')}}</a>
+                    <a href="{{route('departments.create')}}"> {{_('Add New Department')}}</a>
                 </div>
 
             </div>

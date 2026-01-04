@@ -725,7 +725,7 @@
     "Author":"باحث",
     "Journal":"مجلة",
     "Edit Profile":"تعديل الحساب",
-   
+
     "name":" اسم ",
     "Middle Name":" اسم الاب",
     "Last Name":" اللقب",
@@ -902,7 +902,20 @@
        "Message":" الرسالة ",
        "Our View":" الرؤية ",
         "Advanced Search":" البحث المتقدم ",
-      
-    "Type of issue":"نوع العدد"
+
+    "Type of issue":"نوع العدد",
+
+    "Add New Staff": "إضافة موظف جديد",
+    "Name": "الاسم",
+    "Staff ID": "رقم الموظف",
+    "Department": "القسم",
+    "Select Dept": "اختر القسم",
+    "Position": "الوظيفة",
+    "Phone": "رقم الهاتف",
+    "Email": "البريد الإلكتروني",
+    "Image": "الصورة",
+    "Save": "حفظ",
+    "Back": "رجوع"
+
 
 }

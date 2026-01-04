@@ -23,25 +23,18 @@ use App\Http\Controllers\ProjectController;
 Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 {
 	/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-	Route::get('/', function()
-	{
-		return View::make('hello');
-	});
+
+
 
 	Route::get('test',function(){
 		return View::make('test');
 	});
     Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 Route::get('/admin', function () {
     return view('admin');
 });
-});
-
-/** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
-
-
 
 
 Route::resource('departments', DepartmentController::class);
@@ -57,3 +50,9 @@ Route::get('/students/task', [App\Http\Controllers\HomeController::class, 'index
 Route::get('/students/projects', [App\Http\Controllers\HomeController::class, 'index'])->name('student.projects');
 Route::get('/students/printreport', [App\Http\Controllers\HomeController::class, 'index'])->name('student.printreport');
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard');
+
+});
+
+/** OTHER PAGES THAT SHOULD NOT BE LOCALIZED **/
+
+
