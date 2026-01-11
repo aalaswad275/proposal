@@ -41,21 +41,21 @@
                         <tr>
                           <td class="px-0">
                             <div class="d-flex align-items-center">
-                              <img src="{{ asset('backend/img/'.$staff->image) }}" class="rounded-circle" width="40"
+                              <img src="{{ asset('images/'.$staff->image) }}" class="rounded-circle" width="40"
                                 alt="flexy" />
                               <div class="ms-3">
-                                <h6 class="mb-0 fw-bolder">{{ $staff->std_name }}</h6>
+                                <h6 class="mb-0 fw-bolder">{{ $staff->name }}</h6>
                                 <span class="text-muted"></span>
                               </div>
                             </div>
                           </td>
-                          <td class="px-0">{{ $staff->std_department }}</td>
+                          <td class="px-0">{{ $staff->staff_dept }}</td>
                           <td class="px-0">
                             <span class="badge bg-info">Low</span>
                           </td>
                           <td class="px-0 text-dark fw-medium text-end">
-                            <a href="{{ url('admin/staff/' . $staff->id . '/edit') }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ url('admin/staff/' . $staff->id) }}" method="POST" style="display:inline-block;">
+                            <a href="{{route('staff.edit', $staff->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('staff.destroy', $staff->id) }}" method="POST" style="display:inline-block;">
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
