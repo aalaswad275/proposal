@@ -42,4 +42,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function projectsAsStudent() {
+        return $this->hasMany(Project::class, 'student_id');
+    }
+
+    public function projectsAsSupervisor() {
+        return $this->hasMany(Project::class, 'supervisor_id');
+    }
 }

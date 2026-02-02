@@ -71,7 +71,7 @@ class StaffController extends Controller
     {
         //
         $staff = Staff::find($id);
-        return view('staff.show', compact('staff'));
+        return view('admin.staff.show', compact('staff'));
     }
 
     /**
@@ -82,7 +82,7 @@ class StaffController extends Controller
         //
         $staff = Staff::find($id);
         $departments = Department::all();
-        return view('staff.edit', compact('staff'));
+        return view('admin.staff.edit', compact('staff', 'departments'));
     }
 
     /**

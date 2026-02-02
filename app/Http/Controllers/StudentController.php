@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Department;
+use App\Models\Staff;
 
 class StudentController extends Controller
 {
@@ -42,20 +43,22 @@ class StudentController extends Controller
             $image->move(public_path('images'), $imageName);
         }
 
-        Student::create([
-            'name' => $request->name,
-            'std_id' => $request->std_id,
-            'std_dept' => $request->std_dept,
-            'std_level' => $request->std_level,
-            'std_semester' => $request->std_semester,
-            'std_address' => $request->std_address,
-            'std_phone' => $request->std_phone,
-            'std_email' => $request->std_email,
-            'std_supervisor' => $request->std_supervisor,
-            'std_image' => $imageName,
-        ]);
+        $student = new Student();
 
-        return redirect()->route('student.index')
+$student->name = $request->name;
+$student->std_id = $request->std_id;
+$student->std_dept = $request->std_dept;
+$student->std_level = $request->std_level;
+$student->std_semester = $request->std_semester;
+$student->std_address = $request->std_address;
+$student->std_phone = $request->std_phone;
+$student->std_email = $request->std_email;
+$student->std_supervisor = $request->std_supervisor;
+$student->std_image = $imageName;
+
+$student->save();
+
+        return redirect()->route('students.index')
             ->with('success', 'Student created successfully.');
     }
 
@@ -69,7 +72,8 @@ class StudentController extends Controller
     {
         $student = Student::findOrFail($id);
         $departments = Department::all();
-        return view('admin.student.edit', compact('student', 'departments'));
+        $supervisors = Staff::all();
+        return view('Admin.student.edit', compact('student', 'departments', 'supervisors'));
     }
 
     public function update(Request $request, string $id)
@@ -113,7 +117,7 @@ class StudentController extends Controller
             'std_image' => $imageName,
         ]);
 
-        return redirect()->route('student.index')
+        return redirect()->route('students.index')
             ->with('success', 'Student updated successfully.');
     }
 

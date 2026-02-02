@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Arabic IPTV Dashboard</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- HLS.js for .m3u8 playback -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<style>
+/* Gradient text for Ozon TV / header */
+.gradient-text {
+  background: linear-gradient(to right, blueviolet, #dd7bfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>
+</head>
+
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-black text-white min-h-screen">
+
+<div class="grid grid-cols-12 gap-4 p-4">
+
+  <!-- Player -->
+  <div class="col-span-12 lg:col-span-8 bg-black rounded-xl overflow-hidden shadow-lg">
+    <video id="video" controls autoplay class="w-full h-full"></video>
+  </div>
+
+  <!-- Channels Grid -->
+  <div class="col-span-12 lg:col-span-4 overflow-y-auto">
+    <h2 class="text-xl font-bold mb-3">Channels <span class="gradient-text">Arabic IPTV</span></h2>
+    <h1 class="text-2xl font-bold py-4 text-center gradient-text">Arabic Channels</h1>
+
+    <div id="channels" class="grid grid-cols-2 gap-3">
+      <div class="text-gray-400">Loading...</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const PLAYLIST_URL = 'https://iptv-org.github.io/iptv/languages/ara.m3u';
+const MAX_CHANNELS = 50;
+
+const video = document.getElementById('video');
+const channelsDiv = document.getElementById('channels');
+let player = null;
+
+// Use a public CORS proxy to bypass GitHub CORS
+const CORS_PROXY = 'https://corsproxy.io/?';
+
+// Fetch M3U playlist
+fetch(CORS_PROXY + encodeURIComponent(PLAYLIST_URL))
+  .then(res => res.text())
+  .then(text => parseM3U(text))
+  .catch(err => {
+    channelsDiv.innerHTML = '<div class="text-red-400">Failed to load playlist</div>';
+    console.error(err);
+  });
+
+function parseM3U(data) {
+  channelsDiv.innerHTML = '';
+  const lines = data.split('\n');
+  let name = '';
+  let count = 0;
+
+  for (let line of lines) {
+    line = line.trim();
+
+    if (line.startsWith('#EXTINF')) {
+      name = line.split(',').pop();
+    } else if (line.startsWith('http') || line.endsWith('.m3u8')) {
+      if (count >= MAX_CHANNELS) break;
+
+      const url = line;
+
+      const card = document.createElement('div');
+      card.className = `
+        bg-gray-800 rounded-lg p-3 cursor-pointer
+        hover:bg-gray-700 transition shadow-md border border-gray-700
+      `;
+
+      card.innerHTML = `
+        <div class="text-sm font-semibold truncate">${name || 'Channel'}</div>
+        <div class="text-xs text-gray-400 mt-1">Click to Play</div>
+      `;
+
+      card.onclick = () => playStream(url, card);
+
+      channelsDiv.appendChild(card);
+      count++;
+    }
+  }
+}
+
+function playStream(url, cardEl) {
+  // Highlight selected channel
+  document.querySelectorAll('#channels > div').forEach(el => {
+    el.classList.remove('ring-2', 'ring-blue-500');
+  });
+  cardEl.classList.add('ring-2', 'ring-blue-500');
+
+  // Destroy previous player
+  if (player && player.destroy) {
+    player.destroy();
+    player = null;
+  }
+
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(url);
+    hls.attachMedia(video);
+    hls.startLoad();
+    player = hls;
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = url;
+  }
+
+  video.play();
+}
+</script>
+
+</body>
+</html>

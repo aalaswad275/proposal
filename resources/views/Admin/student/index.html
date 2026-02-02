@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IPTV Dashboard</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- HLS.js for playing .m3u8 streams -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-black text-white min-h-screen">
+
+<div class="grid grid-cols-12 gap-4 p-4">
+
+  <!-- DASHBOARD -->
+  <div class="col-span-12 lg:col-span-3 bg-gray-800 rounded-xl p-4 h-[90vh] overflow-y-auto">
+    <h2 class="text-xl font-bold mb-4">Channel Dashboard</h2>
+
+    <div id="dashboard" class="space-y-2 text-sm">
+      Loading channels...
+    </div>
+
+    <button
+      onclick="applySelection()"
+      class="mt-4 w-full bg-blue-600 hover:bg-blue-700 transition rounded-lg py-2 font-semibold">
+      Apply Selection (max 9)
+    </button>
+  </div>
+
+  <!-- PLAYER + GRID -->
+  <div class="col-span-12 lg:col-span-9">
+    <div class="bg-black rounded-xl overflow-hidden mb-4 h-[45vh]">
+      <video id="video" controls autoplay class="w-full h-full"></video>
+    </div>
+
+    <div id="channelsGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <!-- Selected channels appear here -->
+    </div>
+  </div>
+
+</div>
+
+<script>
+const PLAYLIST_URL = 'https://iptv-org.github.io/iptv/languages/ara.m3u';
+const MAX_CHANNELS = 9;
+
+let allChannels = [];
+let player = null;
+const video = document.getElementById('video');
+const dashboard = document.getElementById('dashboard');
+const grid = document.getElementById('channelsGrid');
+
+// Fetch and parse M3U playlist
+fetch(PLAYLIST_URL)
+  .then(res => res.text())
+  .then(text => parseM3U(text));
+
+function parseM3U(data) {
+  const lines = data.split('\n');
+  let name = '';
+
+  lines.forEach(line => {
+    line = line.trim();
+    if (line.startsWith('#EXTINF')) {
+      name = line.split(',').pop();
+    } else if (line.startsWith('http')) {
+      allChannels.push({ name, url: line });
+    }
+  });
+
+  renderDashboard();
+}
+
+// Render checkboxes in dashboard
+function renderDashboard() {
+  dashboard.innerHTML = '';
+  allChannels.forEach((ch, index) => {
+    const row = document.createElement('label');
+    row.className = 'flex items-center gap-2 cursor-pointer';
+    row.innerHTML = `
+      <input type="checkbox" value="${index}" class="accent-blue-500">
+      <span class="truncate">${ch.name}</span>
+    `;
+    dashboard.appendChild(row);
+  });
+}
+
+// Apply selection of channels
+function applySelection() {
+  const checked = [...dashboard.querySelectorAll('input:checked')];
+
+  if (checked.length > MAX_CHANNELS) {
+    alert('You can select up to 9 channels only');
+    return;
+  }
+
+  grid.innerHTML = '';
+
+  checked.forEach((box, i) => {
+    const ch = allChannels[box.value];
+
+    const card = document.createElement('div');
+    card.className = `
+      bg-gray-800 rounded-lg p-3 cursor-pointer
+      hover:bg-gray-700 transition shadow-md
+    `;
+    card.innerHTML = `
+      <div class="font-semibold text-sm truncate">${ch.name}</div>
+      <div class="text-xs text-gray-400 mt-1">Click to Play</div>
+    `;
+    card.onclick = () => playStream(ch.url, card);
+    grid.appendChild(card);
+
+    if (i === 0) playStream(ch.url, card); // auto-play first
+  });
+}
+
+// Play stream using HLS.js
+function playStream(url, cardEl) {
+  // Highlight selected channel
+  document.querySelectorAll('#channelsGrid > div').forEach(el => {
+    el.classList.remove('ring-2', 'ring-blue-500');
+  });
+  cardEl.classList.add('ring-2', 'ring-blue-500');
+
+  // Destroy previous player if exists
+  if (player) {
+    if (player.destroy) player.destroy();
+    player = null;
+  }
+
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(url);
+    hls.attachMedia(video);
+    hls.startLoad();
+    player = hls;
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = url;
+  }
+
+  video.play();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IPTV Player (9 Channels)</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- MPEGTS -->
+  <script src="https://cdn.jsdelivr.net/npm/mpegts.js@latest"></script>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen" >
+
+<div class="grid grid-cols-12 gap-4 p-4 h-screen">
+
+  <!-- Player -->
+  <div class="col-span-12 lg:col-span-8 bg-black rounded-xl overflow-hidden shadow-lg">
+    <video id="video" controls autoplay class="w-full h-full"></video>
+  </div>
+
+  <!-- Channels Grid -->
+  <div class="col-span-12 lg:col-span-4 overflow-y-auto">
+    <h2 class="text-xl font-bold mb-3">Channels <span class="text-xs " style="color:linear-gradient(to right, blueviolet, #dd7bfe)">Ozon TV</span></h2>
+    <h1 class="text-2xl font-bold py-4" style="color:blueviolet; padding-left:40%; "> Ozon TV </h1>
+
+    <div id="channels" class="grid grid-cols-2 gap-3">
+      <!-- Channel cards injected here -->
+      <div class="text-gray-400">Loading...</div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+const PLAYLIST_URL =
+'http://102.208.48.126:55555/get.php?username=spark&password=123456&type=m3u_plus&output=ts';
+
+const MAX_CHANNELS = 20;
+
+let player = null;
+const video = document.getElementById('video');
+const channelsDiv = document.getElementById('channels');
+
+fetch(PLAYLIST_URL)
+  .then(res => res.text())
+  .then(text => parseM3U(text))
+  .catch(err => {
+    channelsDiv.innerHTML = '<div class="text-red-400">Failed to load playlist</div>';
+  });
+
+function parseM3U(data) {
+  channelsDiv.innerHTML = '';
+  const lines = data.split('\n');
+  let name = '';
+  let count = 0;
+
+  for (let line of lines) {
+    line = line.trim();
+
+    if (line.startsWith('#EXTINF')) {
+      name = line.split(',').pop();
+    }
+    else if (line.startsWith('http')) {
+      if (count >= MAX_CHANNELS) break;
+
+      const url = line;
+
+      const card = document.createElement('div');
+      card.className = `
+        bg-gray-800 rounded-lg p-3 cursor-pointer
+        hover:bg-gray-700 transition
+        shadow-md border border-gray-700
+      `;
+
+      card.innerHTML = `
+        <div class="text-sm font-semibold truncate">${name || 'Channel'}</div>
+        <div class="text-xs text-gray-400 mt-1" >Click to Play</div>
+      `;
+
+      card.onclick = () => playStream(url, card);
+
+      channelsDiv.appendChild(card);
+      count++;
+    }
+  }
+}
+
+function playStream(url, cardEl) {
+  // Highlight active card
+  document.querySelectorAll('#channels > div').forEach(el => {
+    el.classList.remove('ring-2', 'ring-blue-500');
+  });
+  cardEl.classList.add('ring-2', 'ring-blue-500');
+
+  if (player) {
+    player.destroy();
+  }
+
+  if (mpegts.getFeatureList().mseLivePlayback) {
+    player = mpegts.createPlayer({
+      type: 'mpegts',
+      isLive: true,
+      url: url
+    });
+    player.attachMediaElement(video);
+    player.load();
+    player.play();
+  } else {
+    alert('MPEG-TS not supported in this browser');
+  }
+}
+</script>
+
+</body>
+</html>
